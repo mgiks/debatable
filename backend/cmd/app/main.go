@@ -1,13 +1,33 @@
 package main
 
 import (
-	"log"
-	"net/http"
+	"log/slog"
 )
 
+const version = "0.0.1"
+
 func main() {
-	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
-		w.Write([]byte("Hello world"))
-	})
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	config := config{
+		env:  "dev",
+		port: ":8080",
+		server: serverConfig{
+			writeTimeout: "30s",
+			readTimeout:  "10s",
+			idleTimeout:  "1m",
+		},
+	}
+
+	logger := slog.Default()
+
+	app := application{
+		config: config,
+		logger: logger,
+	}
+
+	mux := app.mount()
+
+	err := app.run(mux)
+	if err != nil {
+		logger.Error("app failed to run", "err", err)
+	}
 }
