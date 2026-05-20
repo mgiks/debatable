@@ -1,0 +1,26 @@
+name: debatable
+
+services:
+  postgres:
+    container_name: debatable-postgres
+    image: postgres:18.4-alpine
+    volumes:
+      - debatable-postgres-data:/var/lib/postgresql
+    environment:
+      POSTGRES_DB: debatable
+      PGDATABASE: debatable
+      POSTGRES_USER: admin
+      PGUSER: admin
+      POSTGRES_PASSWORD: adminpassword
+      PGPASSWORD: adminpassword
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -d typo-typer" ]
+      interval: 5s
+      timeout: 10s
+      retries: 5
+
+volumes:
+  debatable-postgres-data:
