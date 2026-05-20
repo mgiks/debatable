@@ -16,6 +16,10 @@ func (l zapLogger) Error(msg string, keysAndVals ...any) {
 	l.logger.Errorw(msg, keysAndVals...)
 }
 
+func (l zapLogger) Fatal(msg string, keysAndVals ...any) {
+	l.logger.Fatalw(msg, keysAndVals...)
+}
+
 func NewZapLogger(env string) Logger {
 	loggerConfig := zap.NewProductionConfig()
 	if env == "development" {

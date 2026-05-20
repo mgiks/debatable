@@ -33,8 +33,7 @@ func main() {
 
 	db, err := db.New(context.Background(), config.db.url, config.db.maxConns, config.db.minIdleConns, config.db.maxConnIdleTime)
 	if err != nil {
-		logger.Error("database initialization failed", "err", err)
-		return
+		logger.Fatal("database initialization failed", "err", err)
 	}
 
 	store := storage.NewStore(db)
