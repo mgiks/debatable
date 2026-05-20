@@ -8,17 +8,27 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/mgiks/debatable/internal/posts"
 )
 
 type application struct {
-	config config
-	logger *slog.Logger
+	config      config
+	logger      *slog.Logger
+	postService posts.PostService
 }
 
 type config struct {
 	env    string
 	port   string
 	server serverConfig
+	db     dbConfig
+}
+
+type dbConfig struct {
+	url             string
+	maxConns        int32
+	minIdleConns    int32
+	maxConnIdleTime string
 }
 
 type serverConfig struct {
