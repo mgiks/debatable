@@ -17,5 +17,19 @@ type postRepository struct {
 }
 
 func (r postRepository) Create(ctx context.Context, post *Post) error {
+	query := `
+		INSERT INTO posts (title, body)
+		VALUES ($1, $2) 
+		RETURNING id
+	`
+
+	ctx, cancel := context.WithTimeout(ctx, queryTimeoutDuration)
+	defer cancel()
+
+	err := r.db.QueryRow(ctx, query, &post.Title, &post.Body).Scan(&post.Id)
+	if err != nil {
+		return err
+	}
+
 	return nil
 }

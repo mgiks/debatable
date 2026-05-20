@@ -15,7 +15,7 @@ type postService struct {
 }
 
 func (s postService) CreatePost(ctx context.Context, post *storage.Post) error {
-	return nil
+	return s.post.Create(ctx, post)
 }
 
 func NewPostService(repo storage.PostRepository) PostService {

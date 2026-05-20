@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 )
 
@@ -19,6 +18,6 @@ func (app application) healthCheckHandler(w http.ResponseWriter, r *http.Request
 	}
 
 	if err := app.writeJSONresponse(w, http.StatusOK, payload); err != nil {
-		app.internalServerError(w, r, fmt.Errorf("failed to write json response: %w", err))
+		app.internalServerError(w, r, err)
 	}
 }

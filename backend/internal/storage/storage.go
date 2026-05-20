@@ -2,9 +2,12 @@ package storage
 
 import (
 	"context"
+	"time"
 
 	"github.com/jackc/pgx/v5/pgxpool"
 )
+
+const queryTimeoutDuration = time.Second * 5
 
 type Store interface {
 	Posts() PostRepository
