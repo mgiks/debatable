@@ -2,18 +2,18 @@ package main
 
 import (
 	"fmt"
-	"log/slog"
 	"net/http"
 	"time"
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/mgiks/debatable/internal/logger"
 	"github.com/mgiks/debatable/internal/posts"
 )
 
 type application struct {
 	config      config
-	logger      *slog.Logger
+	logger      logger.Logger
 	postService posts.PostService
 }
 

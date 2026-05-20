@@ -2,10 +2,10 @@ package main
 
 import (
 	"context"
-	"log/slog"
 
 	"github.com/mgiks/debatable/internal/db"
 	"github.com/mgiks/debatable/internal/env"
+	"github.com/mgiks/debatable/internal/logger"
 	"github.com/mgiks/debatable/internal/posts"
 	"github.com/mgiks/debatable/internal/storage"
 )
@@ -14,7 +14,7 @@ const version = "0.0.1"
 
 func main() {
 	config := config{
-		env:  "dev",
+		env:  "development",
 		port: ":8080",
 		server: serverConfig{
 			writeTimeout: env.GetString("SERVER_WRITE_TIMEOUT", "30s"),
@@ -29,7 +29,7 @@ func main() {
 		},
 	}
 
-	logger := slog.Default()
+	logger := logger.NewZapLogger(config.env)
 
 	db, err := db.New(context.Background(), config.db.url, config.db.maxConns, config.db.minIdleConns, config.db.maxConnIdleTime)
 	if err != nil {
