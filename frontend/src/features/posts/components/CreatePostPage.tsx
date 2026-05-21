@@ -1,9 +1,11 @@
 import type { SyntheticEvent } from 'react'
 import './CreatePostPage.scss'
+import SideBar from '../../general/components/SideBar'
 
 function CreatePostPage() {
   return (
     <div className='page'>
+      <SideBar />
       <Form />
     </div>
   )

@@ -1,14 +1,11 @@
-import { Link } from 'react-router'
 import './App.scss'
+import SideBar from './features/general/components/SideBar'
 
 function App() {
   return (
-    <div>
-      <Link to={'/posts/new'}>
-        <button>
-          Create Post
-        </button>
-      </Link>
+    <div className='page'>
+      <SideBar />
+      <p>Home Page</p>
     </div>
   )
 }
